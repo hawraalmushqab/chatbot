@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> *فاطمه سعيد* </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+  body {
+    background-image: url("https://www.go-fair.org/wp-content/uploads/2020/07/iStock-1091882772-scaled.jpg");
+	 background-repeat: no-repeat;
+background-attachment: fixed;
+  background-size: 100% 100%;
+  }
+  
+  div {
+	position:absolute;
+	top:50%;
+	right:10%;
+	width:100%;
+	height:20%;
+	text-align: right;
+	
+  }
+
+  
+b { color: rgb(60%, 0%, 40%); } 
+  
+</style>
+
+</head>
+
+<body class="mobileHide">
+  
+  <div>
+    <p><h1><b>Say Hi to start chating 
+	<br>
+	with my bot Frankie</b></h1></p>
+  </div>
+
+<script>
+  window.watsonAssistantChatOptions = {
+      integrationID: "b7db008f-8914-4360-ab35-9cc687bdfbb4", // The ID of this integration.
+      region: "eu-de", // The region your integration is hosted in.
+      serviceInstanceID: "83bf54fa-2031-4876-b271-dd2912f4f7ee", // The ID of your service instance.
+      onLoad: function(instance) { instance.render(); }
+    };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+    document.head.appendChild(t);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+{
+  "intents": [
+    {
+      "intent": "Evaluation",
+      "examples": [
+        {
+          "text": "evaluation"
+        },
+        {
+          "text": "First question"
+        },
+        {
+          "text": "give me the survey"
+        },
+        {
+          "text": "I want to evaluate the event"
+        },
+        {
+          "text": "next"
+        },
+        {
+          "text": "not satisfied"
+        },
+        {
+          "text": "second question"
+        },
+        {
+          "text": "start evaluation"
+        },
+        {
+          "text": "want to do survey"
+        },
+        {
+          "text": "yes"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Goodbye",
+      "examples": [
+        {
+          "text": "bye"
+        },
+        {
+          "text": "end"
+        },
+        {
+          "text": "finished"
+        },
+        {
+          "text": "goodbye"
+        },
+        {
+          "text": "no"
+        },
+        {
+          "text": "see you"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "greeting",
+      "examples": [
+        {
+          "text": "hello"
+        },
+        {
+          "text": "hey"
+        },
+        {
+          "text": "hi"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "End",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "bye",
+          "synonyms": [
+            "goodbye",
+            "see you"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "end the evaluation",
+          "synonyms": [
+            "end",
+            "end the survey"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Feedback",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Feedback",
+          "synonyms": [
+            "give opinion",
+            "my opinion"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "greeting",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "hi",
+          "synonyms": [
+            "hello",
+            "hey"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "second",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "second question",
+          "synonyms": [
+            "next question"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Third",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Third question",
+          "synonyms": [
+            "next ",
+            "next question"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Yes",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "First question",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Yes, I have feedback",
+          "synonyms": [
+            "Yes, I have suggestion",
+            "yes I want to give feedback"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Yes, start evaluation.",
+          "synonyms": [
+            "Yes",
+            "Yes, start evaluation please.",
+            "Yes, start please."
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Feedback",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Is there anything you would like us to know? "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "when you finish say end"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1625700523563",
+      "conditions": "@Feedback",
+      "dialog_node": "node_10_1625701645451"
+    },
+    {
+      "type": "standard",
+      "title": "end",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you for your time to attend our event"
+              },
+              {
+                "text": "Thank you and you are welcome to contact us for our services"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@End",
+      "dialog_node": "node_1_1625702139698",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "First question",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "What is your level of satisfaction for this event? "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "satisfaction level",
+            "options": [
+              {
+                "label": "not satisfied",
+                "value": {
+                  "input": {
+                    "text": "second question"
+                  }
+                }
+              },
+              {
+                "label": "acceptable",
+                "value": {
+                  "input": {
+                    "text": "second question"
+                  }
+                }
+              },
+              {
+                "label": "satisfied",
+                "value": {
+                  "input": {
+                    "text": "second question"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "Welcome",
+      "conditions": "@Yes",
+      "dialog_node": "node_3_1625696338091"
+    },
+    {
+      "type": "standard",
+      "title": "second question",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Which robot of the event did you like the most?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "choose the answer",
+            "options": [
+              {
+                "label": "coffee robot",
+                "value": {
+                  "input": {
+                    "text": "third question"
+                  }
+                }
+              },
+              {
+                "label": "Presenting Concert Robot",
+                "value": {
+                  "input": {
+                    "text": "third question"
+                  }
+                }
+              },
+              {
+                "label": "evaluation robot",
+                "value": {
+                  "input": {
+                    "text": "third question"
+                  }
+                }
+              },
+              {
+                "label": "Human robot",
+                "value": {
+                  "input": {
+                    "text": "third question"
+                  }
+                }
+              },
+              {
+                "label": "All robots",
+                "value": {
+                  "input": {
+                    "text": "third question"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_3_1625696338091",
+      "conditions": "@second",
+      "dialog_node": "node_4_1625699673484"
+    },
+    {
+      "type": "standard",
+      "title": "third question",
+      "output": {
+        "generic": [
+          {
+            "title": "Would you like to tell others about our robots ?",
+            "options": [
+              {
+                "label": "Yes I like the idea",
+                "value": {
+                  "input": {
+                    "text": "feedback "
+                  }
+                }
+              },
+              {
+                "label": "No I did not like the event",
+                "value": {
+                  "input": {
+                    "text": "feedback"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_4_1625699673484",
+      "conditions": "@Third",
+      "dialog_node": "node_7_1625700523563"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Welcome dear guest. Thank you for attending our robotic event."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Would you like to rate the ceremony and give us your feedback ?",
+            "options": [
+              {
+                "label": "yes",
+                "value": {
+                  "input": {
+                    "text": "First question"
+                  }
+                }
+              },
+              {
+                "label": "no",
+                "value": {
+                  "input": {
+                    "text": "end"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "#greeting || @greeting",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
